@@ -548,9 +548,12 @@ func main() {
 //          ↓
 //     do work
 //          ↓
-//     function returns
+//     function is about to return 
 //          ↓
 //     cleanup executes
+//          ↓
+//     function actually returns 
+//
 //
 // This is one of the Go patterns you'll use constantly in
 // real backend/system programming.
