@@ -122,4 +122,8 @@ func main() {
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
+	err = ovdAcc.Withdraw(200.00)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 }

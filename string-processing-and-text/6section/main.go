@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"text/template"
 )
 
@@ -30,7 +31,7 @@ Subject: {{ .Subject }}
 {{end}}
 {{end}}
 
-{{if gt. UnreadCount 0}}
+{{if gt .UnreadCount 0}}
 You have {{.UnreadCount}} unreads.
 {{else}}
 You have no messages 
@@ -40,4 +41,25 @@ You have no messages
 - Thanks
 {{.SenderName}}
 `
+
+	tmpl, err := template.New("email").Parse(emailTemplate)
+	if err != nil {
+		fmt.Println("Error parsing template:", err)
+		return
+	}
+
+	data := EmailData{
+		ReciepientName: "Alice",
+		SenderName:     "Bob",
+		Subject:        "Weekly Update",
+		Body:           "Here are the items we worked on this week:",
+		Items:          []string{"Task 1: Bug fixes", "Task 2: Feature development", "Task 3: Code review"},
+		UnreadCount:    2,
+	}
+
+	err = tmpl.Execute(os.Stdout, data)
+	if err != nil {
+		fmt.Println("Error executing template:", err)
+		return
+	}
 }
